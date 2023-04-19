@@ -7,12 +7,9 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 const db = mysql.createConnection({
   host: "127.0.0.1",
-  user: "root",
-  password: "",
-  database: adventure,
-  port: "8889",
-  connectionLimit: 10,
-  socketPath: "/Applications/MAMP/tmp/mysql/mysql.sock",
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
 });
 module.exports = db;
 db.connect((err) => {
