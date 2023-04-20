@@ -16,13 +16,28 @@ db.connect((err) => {
   console.log("db connected");
 });
 
-// app.use(express.static(path.join(__dirname,'')))
+//
+// app.use(express.static(path.join(__dirname, "")));
 // app.get('*', (req, res) => {
 //   res.sendFile(path.join(__dirname,'./clint/build/index.html'))
 // })
-
+var createSql =
+  "CREATE TABLE IF NOT EXISTS customers (name VARCHAR(255), address VARCHAR(255))";
+var All = "select * from customers";
+app.get("/all", (req, res) => {
+  db.query(All, function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
+  // res.send({ title: "Books" });
+});
+var select = "insert into customers(name, address) values('zemelat','admin')";
 app.get("/", (req, res) => {
-  res.send({ title: "Books" });
+  db.query(select, function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
+  // res.send({ title: "Books" });
 });
 app.listen(port, () => {
   console.log("started");
