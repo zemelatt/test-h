@@ -9,11 +9,15 @@ const db = mysql.createConnection({
   host: process.env.MYSQL_HOST,
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE,
+  // database: process.env.MYSQL_DATABASE,
 });
 db.connect((err) => {
-  if (err) console.log(err);
-  console.log("db connected");
+  if (err) throw err;
+  console.log("Connected!");
+  db.query("CREATE DATABASE IF NOT EXISTS Mydb", (err, result) => {
+    if (err) throw err;
+    console.log("db created");
+  });
 });
 
 //
